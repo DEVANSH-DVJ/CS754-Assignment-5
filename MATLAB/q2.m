@@ -5,7 +5,7 @@ close all;
 rng(1);
 
 n = 128;
-tol=0.1;
+tol = 0.1;
 rmse_avg = [];
 
 for alpha=[0, 3]
@@ -30,13 +30,16 @@ for alpha=[0, 3]
         rmse = zeros(10, 1);
         phi = randn(m, n) / sqrt(m);
 
+        SpT = Sigma * phi';
+        pSpT = phi * SpT;
+
         for i=1:10
             y = phi * xs(:, i);
             sig = 0.01 * mean(abs(y));
             y = y + mvnrnd(zeros(m, 1), eye(m)*sig^2, 1)';
-            x = (Sigma - Sigma*phi'/(eye(m)*sig^2 + phi*Sigma*phi')*phi*Sigma) * phi' * y / (sig^2);
+            x = (SpT - SpT/(eye(m)*sig^2 + pSpT)*pSpT) * y / (sig^2);
 
-            rmse(i) = sqrt(mean((x - xs(:, i)).^2)) / sqrt(mean(xs(:, i).^2));
+            rmse(i) = sqrt(mean((x - xs(:,i)).^2))/sqrt(mean(xs(:,i).^2));
         end
         rmse_avg = [rmse_avg mean(rmse)];
     end
