@@ -52,7 +52,7 @@ for alpha=[0, 3]
             % Reconstruction of x
             x = (SpT - SpT/(eye(m)*sig^2 + pSpT)*pSpT) * y / (sig^2);
 
-            % Calculating RMSE
+            % Calculating Avg. Relative RMSE
             rmse(i) = sqrt(mean((x - xs(:,i)).^2))/sqrt(mean(xs(:,i).^2));
         end
         rmse_avg = [rmse_avg mean(rmse)];
@@ -65,24 +65,24 @@ figure;
 plot([40, 50, 64, 80, 100, 120], rmse_avg(1:6), 'r');
 legend("\alpha = 0");
 xlabel("m");
-ylabel("RMSE");
-title("RMSE Vs m");
+ylabel("Avg. Relative RMSE");
+title("Avg. Relative RMSE Vs m");
 saveas(gcf, "plots/0.jpg");
 plot([40, 50, 64, 80, 100, 120], rmse_avg(7:12), 'b');
 legend("\alpha = 3");
 xlabel("m");
-ylabel("RMSE");
-title("RMSE Vs m");
+ylabel("Avg. Relative RMSE");
+title("Avg. Relative RMSE Vs m");
 saveas(gcf, "plots/3.jpg");
 hold on;
 plot([40, 50, 64, 80, 100, 120], rmse_avg(1:6), 'r');
 legend("\alpha = 3", "\alpha = 0");
 xlabel("m");
-ylabel("RMSE");
-title("RMSE Vs m");
+ylabel("Avg. Relative RMSE");
+title("Avg. Relative RMSE Vs m");
 saveas(gcf, "plots/both.jpg");
 
 close all;
 
-fprintf("Avg. RMSE for \x03b1 = 0, m = %i \t: %f\n", [[40, 50, 64, 80, 100, 120]; rmse_avg(1:6)]);
-fprintf("Avg. RMSE for \x03b1 = 3, m = %i \t: %f\n", [[40, 50, 64, 80, 100, 120]; rmse_avg(7:12)]);
+fprintf("Avg. Relative RMSE for \x03b1 = 0, m = %i \t: %f\n", [[40, 50, 64, 80, 100, 120]; rmse_avg(1:6)]);
+fprintf("Avg. Relative RMSE for \x03b1 = 3, m = %i \t: %f\n", [[40, 50, 64, 80, 100, 120]; rmse_avg(7:12)]);
