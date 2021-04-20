@@ -19,6 +19,7 @@ for alpha=[0, 3]
     U(:,1) = vi ./ norm(vi);
     for i=2:n
       nrm = 0;
+      % only if vector has sufficiently large component orthogonal to U
       while nrm < tol
         vi = randn(n,1);
         vi = vi - U(:,1:i-1) * (U(:,1:i-1)' * vi);
